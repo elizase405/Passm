@@ -1,14 +1,14 @@
-import mongoose from "mongoose";
-import bcrypt from "bcryptjs";
+const mongoose = require("mongoose");
+const bcrypt = require("bcryptjs");
 
 const userSchema = new mongoose.Schema({
-    email: { type: String, required: true, unique: true },
-    passwordHash: { type: String, required: true },
+    username: { type: String, unique: true, required: true, trim: true },
+    password: { type: String, required: true }
 })
 
 // add method comparePassword to compare given password with stored password 
-userSchema.methods.comparePassword = async function (password) {
-    return bcrypt.compare(password, this.passwordHash)
+userSchema.methods.comparePassword = async function (pwd) {
+    return bcrypt.compare(pwd, this.password)
 }
 
-export default mongoose.model("User", userSchema);
+module.exports = mongoose.model("User", userSchema);

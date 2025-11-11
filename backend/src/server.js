@@ -1,20 +1,28 @@
-import express from "express";
-import cors from "cors";
-import dotenv from "dotenv";
-import connectDB from "./config/db.js";
-import authRoutes from "./routes/authRoutes.js";
+const express = require("express");
+const cors = require("cors");
+require("dotenv").config();
+const connectDB = require("./database/db.js");
+const authRoutes = require("./routes/authRoutes.js");
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3000;
 
-dotenv.config();
 connectDB();
 
 const app = express();
-app.use(cors);
+app.use(cors());
 app.use(express.json());
+
+//Set middleware
+app.set("view engine", "ejs") 
+app.use(express.static('public')) 
+app.use(express.urlencoded({extended: true})) 
 
 app.use("/api/auth", authRoutes);
 
+app.get("/", (req, res) => {
+    res.send("Auth API running");
+});
+
 app.listen(PORT, () => {
-    console.log(`Server runnin on port ${PORT}`)
+    console.log(`Server running on port ${PORT}`)
 })
