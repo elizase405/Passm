@@ -1,0 +1,73 @@
+@import "tailwindcss";
+
+body {
+  @apply bg-[#0a0f1f] text-gray-200  min-h-screen;
+}
+
+.card {
+  @apply bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-6 shadow-lg;
+}
+
+.btn {
+  @apply px-4 py-2 rounded-lg bg-blue-300 text-[#0a0f1f] font-semibold hover:bg-blue-300/90 transition cursor-pointer;
+}
+
+/* Border Lines */
+@utility topleft {
+  @apply absolute -top-1 -left-1 border-2 border-blue-300 
+}
+@utility bottomleft {
+  @apply absolute -bottom-1 -left-1 border-2 border-blue-300 
+}
+@utility topright {
+  @apply absolute -top-1 -right-1 border-2 border-blue-300 
+}
+@utility bottomright {
+  @apply absolute -bottom-1 -right-1 border-2 border-blue-300 
+}
+@layer borderlines {
+  /* Left Side */
+  .topleft1 {
+    @apply topleft w-1/14
+  }
+  .topleft2 {
+    @apply topleft h-1/6
+  }
+  .bottomleft1 {
+    @apply bottomleft w-1/14
+  }
+  .bottomleft2 {
+    @apply bottomleft h-1/6
+  }
+  /* Right Side */
+  .topright1 {
+    @apply topright w-1/14
+  }
+  .topright2 {
+    @apply topright h-1/6
+  }
+  .bottomright1 {
+    @apply bottomright w-1/14
+  }
+  .bottomright2 {
+    @apply bottomright h-1/6
+  }
+}
+
+@utility polygon {
+  @apply absolute border-15 border-blue-300 w-1/6 left-1/2 top-0 -translate-x-1/2;
+  clip-path: polygon(0 0, 100% 0%, 90% 100%, 10% 100%);
+}
+
+@utility positioning {
+  @apply absolute border-blue-300 border-5 -translate-y-1/2 top-1/2
+}
+@utility leftclip {
+  @apply positioning;
+  clip-path: polygon(0 0, 100% 10%, 100% 90%, 0% 100% )
+}
+
+@utility rightclip {
+  @apply positioning;
+  clip-path: polygon(0% 10%, 100% 0%, 100% 100%, 0% 90% )
+}
