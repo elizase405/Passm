@@ -1,48 +1,40 @@
 // src/components/Modal.jsx
-import { useState } from "react";
+import { useForm } from "react-hook-form";
 
 export default function Modal({ onClose, onSave }) {
-  const [site, setSite] = useState("");
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const { register, handleSubmit, formState: { errors },} = useForm();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    onSave({ site, username, password });
+  const onSubmit = (data) => {
+    onSave(data); // { site, username, password }
     onClose();
   };
 
   return (
-    <div className="fixed inset-0 bg-black/70 flex justify-center items-center z-50">
-      <form
-        onSubmit={handleSubmit}
-        className="card w-96 border border-[#00ffcc]/30"
-      >
-        <h2 className="text-xl text-[#00ffcc] font-semibold mb-4">
-          Add New Password
-        </h2>
-        <input
-          type="text"
-          placeholder="Site Name"
-          value={site}
-          onChange={(e) => setSite(e.target.value)}
-          className="w-full mb-3 p-2 rounded bg-transparent border border-white/20"
+    <div className="fixed inset-0 bg-black/70 flex justify-center items-center z-50" onClick={onClose}>
+      <form onSubmit={handleSubmit(onSubmit)} onClick={(e) => e.stopPropagation()} className="relative card w-96 border border-[#00ffcc]/30" >
+        <button type="button" onClick={onClose} className="absolute top-6 right-3 text-[#0099ff] text-xl hover:opacity-70 transition" >
+          ✕
+        </button>
+
+        <h2 className="text-xl text-[#0099ff] font-semibold mb-4">Add New Password</h2>
+
+        {/* Site Name */}
+        <input type="text" placeholder="Site Name" {...register("site", { required: "Site name is required" })} className="bg-blue-300/10 p-2 rounded-md outline-none w-full mb-3 text-sm" />
+        {errors.site && ( <p className="text-red-400 text-xs mb-2">{errors.site.message}</p>)}
+
+        {/* Username */}
+        <input type="text" placeholder="Username" {...register("username", { required: "Username is required" })} className="bg-blue-300/10 p-2 rounded-md outline-none w-full mb-3 text-sm" />
+        {errors.username && (<p className="text-red-400 text-xs mb-2">{errors.username.message}</p>)}
+
+        {/* Password */}
+        <input type="password" placeholder="Password"
+          {...register("password", { required: "Password is required", minLength: { value: 6, message: "Password must be at least 6 characters",},
+          })}
+          className="bg-blue-300/10 p-2 rounded-md outline-none w-full mb-1 text-sm"
         />
-        <input
-          type="text"
-          placeholder="Username / Email"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          className="w-full mb-3 p-2 rounded bg-transparent border border-white/20"
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          className="w-full mb-5 p-2 rounded bg-transparent border border-white/20"
-        />
-        <button type="submit" className="btn w-full">
+        {errors.password && (<p className="text-red-400 text-xs mb-2">{errors.password.message}</p>)}
+
+        <button type="submit" className="btn w-full mt-2">
           Save
         </button>
       </form>

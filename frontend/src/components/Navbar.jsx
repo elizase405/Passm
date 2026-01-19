@@ -41,8 +41,8 @@ export default function Navbar() {
               onClick={() => navigate(link.path)}
               className={`${
                 location.pathname === link.path
-                  ? "text-[#00ffcc]"
-                  : "text-gray-400 hover:text-[#00ffcc]"
+                  ? "text-[#0099ff]"
+                  : "text-blue-300 hover:text-[#0099ff]"
               } font-medium transition`}
             >
               {link.label}
