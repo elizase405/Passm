@@ -39,10 +39,38 @@ const login = async (req, res) => {
 
         const token = jwt.sign({ id: user._id, username: user.username }, process.env.JWT_SECRET, { expiresIn: "30m" })
 
+        res.cookie("token", token, { httpOnly: true, secure: process.env.NODE_ENV === "production", sameSite: "strict", maxAge: 24 * 60 * 60 *1000 });
+
         res.json({ message: "Logged in successfully", token })
     } catch (e) {
         return res.status(500).json({ message: "Some error occured! Please try again" })
     }
 }
 
-module.exports = { register, login }
+const getAuthenticatedUser = async (req, res) => {
+    const token = req.cookies.token;
+    if (!token) return res.status(401).json({ message: "Unauthorized" });
+    try {
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        res.json({ id: decoded.id, username: decoded.username })
+    } catch (err) {
+        res.status(500).json({ err: "Server error occured" })
+        console.error("Server error: ", err)
+    }
+}
+
+const logOut = async (req, res) => {
+    try {
+        res.clearCookie("token", {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "production",
+            sameSite: "strict",
+        })
+        res.json({ message: "Logged Out successfully" })
+    } catch (err) {
+        res.status(500).json({ err: "Server error occured" })
+        console.error("Server error: ", err)
+    }
+}
+
+module.exports = { register, login, getAuthenticatedUser, logOut }

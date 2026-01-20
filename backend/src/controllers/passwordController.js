@@ -3,7 +3,7 @@ const { encrypt, decrypt } = require("../utils/crypto.js");
 
 const getAllPasswords = async (req, res) => {
     try {
-        const passwords = await Password.find({});
+        const passwords = await Password.find({userId: req.userInfo.id});
         const decrypted = passwords.map((item) => ({
             ...item.toObject(),
             password: decrypt(item.password),
@@ -20,7 +20,7 @@ const addPassword = async (req, res) => {
     try {
         const encryptedPassword = encrypt(password);
 
-        const newPassword = await Password.create({ site, username, password: encryptedPassword,});
+        const newPassword = await Password.create({ site, username, password: encryptedPassword, userId: req.userInfo.id });
 
         if (newPassword) {
             res.status(201).json({ message: "Password saved successfully", id: newPassword._id });
@@ -36,7 +36,7 @@ const addPassword = async (req, res) => {
 const deletePassword = async (req, res) => {
     try {
         const { id } = req.params;
-        const deletedPassword = await Password.findByIdAndDelete(id);
+        const deletedPassword = await Password.findOneAndDelete({ _id: id, userId: req.userInfo.id });
 
         if (deletedPassword) {
             res.status(200).json({ message: "Password deleted successfully" });
