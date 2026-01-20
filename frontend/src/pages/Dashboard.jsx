@@ -1,20 +1,22 @@
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import PasswordCard from "../components/PasswordCard";
 import PasswordGenerator from "../components/PasswordGenerator";
 import Modal from "../components/Modal";
 import useEncryption from "../hooks/useEncryption";
-import axios from "axios";
+import axios from "../api/axios";
+import ComingSoon from "../components/ComingSoon";
 
 export default function Dashboard() {
   const masterKey = "user";
   const { encrypt, decrypt } = useEncryption(masterKey);
   const [passwords, setPasswords] = useState([]);
   const [showModal, setShowModal] = useState(false);
+  const [showComingSoon, setShowComingSoon] = useState(false);
 
   useEffect(() => {
     const fetchPasswords = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/api/password/get-passwords");
+        const response = await axios.get("/password/get-passwords");
         const data = response.data.map((item) => ({
           ...item,
           password: decrypt(item.password),
@@ -29,7 +31,7 @@ export default function Dashboard() {
 
   const handleAddPassword = (account) => {
     try {
-      const data = axios.post("http://localhost:3000/api/password/save-password", {
+      const data = axios.post("/password/save-password", {
         site: account.site,
         username: account.username,
         password: encrypt(account.password)
@@ -41,7 +43,7 @@ export default function Dashboard() {
 
   const handleDelete = async (id) => {
   try {
-    await axios.delete(`http://localhost:3000/api/password/delete-password/${id}`);
+    await axios.delete(`/password/delete-password/${id}`);
     setPasswords(prev => prev.filter(p => p._id !== id));
   } catch (err) {
     console.error("Delete failed:", err);
@@ -73,7 +75,7 @@ export default function Dashboard() {
           )}
         </div>
 
-        <div id="generator">
+        <div id="generator" onClick={() => setShowComingSoon(true)}>
           <PasswordGenerator
             onGenerate={(newPass) => navigator.clipboard.writeText(newPass)}
           />
@@ -81,6 +83,9 @@ export default function Dashboard() {
 
         {showModal && (
           <Modal onClose={() => setShowModal(false)} onSave={handleAddPassword} />
+        )}
+        {showComingSoon && (
+          <ComingSoon onClose={() => setShowComingSoon(false)} />
         )}
       </div>
     </div>

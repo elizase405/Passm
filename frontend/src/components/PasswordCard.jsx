@@ -17,19 +17,19 @@ export default function PasswordCard({ account, onDelete }) {
         <div className="flex gap-2">
           <button
             onClick={() => setRevealed(!revealed)}
-            className="text-sm hover:text-[#00ffcc] transition"
+            className="text-sm hover:text-[#00ffcc] transition pl-2 cursor-pointer"
           >
             {revealed ? "Hide" : "Show"}
           </button>
           <button
             onClick={() => navigator.clipboard.writeText(account.password)}
-            className="text-sm hover:text-[#00ffcc] transition"
+            className="text-sm hover:text-[#00ffcc] transition cursor-pointer"
           >
             Copy
           </button>
           <button
-            onClick={() => onDelete(account._id)}
-            className="text-sm text-red-400 hover:text-red-500"
+            onClick={() => onDelete(account.id)}
+            className="text-sm text-red-400 hover:text-red-500 cursor-pointer transition"
           >
             Delete
           </button>

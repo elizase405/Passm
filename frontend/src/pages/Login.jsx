@@ -1,24 +1,27 @@
 import { useState } from "react";
-import axios from "axios";
+import axios from "../api/axios";
 import { useForm } from "react-hook-form";
 import AuthBorder from "../components/AuthBorder";
 import { CiUser } from "react-icons/ci";
 import { GiPadlock } from "react-icons/gi";
 import Alert from "./Alert";
 import { useNavigate } from "react-router";
+import { useAuth } from "../context/AuthContext";
 
 export default function Login() {
   const [ msg, setMsg ] = useState("");
   const { register, reset, watch, handleSubmit, formState: { errors, isSubmitting, isSubmitSuccessful } } = useForm({ defaultValues: { username: "", password: "" } });
   const password = watch("password");
   const navigate = useNavigate();
+  const { fetchUser } = useAuth();
 
   const onSubmit = async (data) => {
     try {
-      const res = await axios.post("http://localhost:3000/api/auth/login", data);
+      const res = await axios.post("/auth/login", data);
       // console.log("Login Successful: ", res.data);
       setMsg(res.data.message);
-      navigate("/dashboard");
+      fetchUser();
+      setTimeout(() => navigate("/dashboard"), 500);
     } catch (err) {
       setMsg(err.response?.data?.message || err.message);
       console.log(err.response?.data?.message || err.message);

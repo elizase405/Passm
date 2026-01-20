@@ -1,26 +1,15 @@
 import { useNavigate, useLocation } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 export default function Navbar() {
   const navigate = useNavigate();
   const location = useLocation();
+  const { user, logout } = useAuth();
 
   const links = [
     { label: "Dashboard", path: "/dashboard" },
     { label: "Generator", path: "/dashboard#generator" },
   ];
-
-  const handleRegister = () => {
-    localStorage.removeItem("token");
-    navigate("/register");
-  };
-  const handleLogin = () => {
-    localStorage.removeItem("token");
-    navigate("/login");
-  };
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    navigate("/");
-  };
 
   return (
     <nav className="sticky top-0 z-50 bg-[#0a0f1f]/90 backdrop-blur-md border-b border-[#00ffcc]/20">
@@ -33,35 +22,35 @@ export default function Navbar() {
           <span className="text-[#0099ff]">Passm</span>
         </h1>
 
-        {/* Navigation Links */}
-        <div className={`${location.pathname === "/dashboard" ? "flex" : "hidden"} items-center gap-6`}>
-          {links.map((link) => (
+        {/* Show dashboard links if logged in */}
+        { user ? (
+          <div className="flex items-center gap-6">
+            {links.map((link) => (
+              <button key={link.path} onClick={() => navigate(link.path)} className={`${ location.pathname === link.path ? "text-[#0099ff]" : "text-blue-300 hover:text-[#0099ff]"} font-medium transition cursor-pointer`}>
+                {link.label}
+              </button>
+            ))}
+            <button onClick={() => { logout(); navigate("/"); }} className="px-3 py-1 rounded-lg border border-blue-300/30 text-blue-300 hover:bg-blue-300/10 cursor-pointer transition ml-4">
+              Logout
+            </button>
+          </div>
+        ) : (
+          // Show Login/Register if NOT logged in
+          <div>
             <button
-              key={link.path}
-              onClick={() => navigate(link.path)}
-              className={`${
-                location.pathname === link.path
-                  ? "text-[#0099ff]"
-                  : "text-blue-300 hover:text-[#0099ff]"
-              } font-medium transition`}
+              onClick={() => navigate("/register")}
+              className="px-3 py-1 rounded-lg border border-blue-300/30 text-blue-300 hover:bg-blue-300/10 cursor-pointer transition"
             >
-              {link.label}
-            </button>
-          ))}
-        </div>
-
-        <div className={`${location.pathname == "/login" || location.pathname == "/register" || location.pathname == "/" ? "flex" : "hidden"}`}>
-            <button
-                onClick={handleRegister}
-                className="px-3 py-1 rounded-lg border border-blue-300/30 text-blue-300 hover:bg-blue-300/10 cursor-pointer transition">
-                  Register
+              Register
             </button>
             <button
-                onClick={handleLogin}
-                className="px-3 py-1 rounded-lg border border-blue-300/30 text-blue-300 hover:bg-blue-300/10 cursor-pointer transition ml-4">
-                  Login
+              onClick={() => navigate("/login")}
+              className="px-3 py-1 rounded-lg border border-blue-300/30 text-blue-300 hover:bg-blue-300/10 cursor-pointer transition ml-4"
+            >
+              Login
             </button>
-        </div>
+          </div>
+        )}
       </div>
     </nav>
   );
