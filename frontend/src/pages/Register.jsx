@@ -28,28 +28,28 @@ export default function Register() {
 
   return (
     <div className='flex justify-center items-center w-full h-full'>
-      {isSubmitSuccessful && <Alert msg={msg} />}
-        <div className='flex justify-center items-center relative w-3/4 h-3/4'>
+        <div className='mx-auto w-[90%] flex justify-center items-center relative w-3/4 h-3/4'>
           {/* border design */}
           <AuthBorder />
-          <form onSubmit={handleSubmit(onSubmit)} action="" className="w-full flex flex-col justify-center items-center space-y-4">
-            <h1 className='uppercase text-blue-300 text-2xl text-center'>Register</h1>
-            <div className="w-full flex flex-col items-center">
-              <input type="text" name="username" placeholder="Username" {...register("username", { required: "Username is required" })} className="bg-blue-300/10 px-9 py-2 rounded-md w-1/3 outline-none focus:border-blue-300 focus:border-1" />
-              <span className="absolute top-32.5 left-80 text-blue-300"><CiUser size="30" /></span>
-              <div className="w-full absolute -top-33 -right-40">
+          <form onSubmit={handleSubmit(onSubmit)}  className="absolute w-full h-full">
+            <div className="w-full h-full flex flex-col justify-center items-center">
+              {isSubmitSuccessful && <Alert msg={msg} />}
+              <h1 className='uppercase text-blue-300 text-xl sm:text-2xl text-center mb-6'>Register</h1>
+              <div className="relative w-4/6 md:w-3/7 lg:w-1/3 flex flex-col items-center">
+                <input type="text" name="username" placeholder="Username" {...register("username", { required: "Username is required" })} className="w-full bg-blue-300/10 px-10 py-2 mb-6 rounded-md outline-none focus:border-blue-300 focus:border-1" />
+                <span className="absolute left-1 mt-2 text-blue-300"><CiUser size="23" /></span>
+              </div>
+              <span className="absolute top-13 right-0">
                 {errors.username && <Alert msg={errors.username.message} />}
+              </span>
+              <div className="relative w-4/6 md:w-3/7 lg:w-1/3 flex flex-col items-center">
+                <input type="password" name="password" placeholder="Password" value={password} {...register("password", { required: "Password is required", minLength: { value: 8, message: "Password must be at least 8 characters long" } })} className="w-full bg-blue-300/10 px-10 py-2 rounded-md outline-none focus:border-blue-300 focus:border-1 mb-6" />
+                <span className="absolute left-1 mt-2.5 text-blue-300"><GiPadlock size="21" /></span>
               </div>
+              {errors.password && <Alert msg={errors.password.message} />}
+              <button disabled={isSubmitting} type="submit" className="btn w-1/2 md:w-1/3 lg:w-1/4 mb-6">{isSubmitting ? "Submiting..." : "Submit"}</button>
+              <p>Already have an account? <a href="/login" className="text-blue-300 hover:underline">Login</a></p>
             </div>
-            <div className="w-full flex flex-col items-center">
-              <input type="password" name="password" placeholder="Password" value={password} {...register("password", { required: "Password is required", minLength: { value: 8, message: "Password must be at least 8 characters long" } })} className="bg-blue-300/10 px-9 py-2 rounded-md w-1/3 outline-none focus:border-blue-300 focus:border-1 " />
-              <span className="absolute top-47 left-80.5 text-blue-300"><GiPadlock size="25" /></span>
-              <div className="w-full absolute -top-18 -right-40">
-                {errors.password && <Alert msg={errors.password.message} />}
-              </div>
-            </div>
-            <button disabled={isSubmitting} type="submit" className="btn w-1/3">{isSubmitting ? "Submiting..." : "Submit"}</button>
-            <p>Already have an account? <a href="/login" className="text-blue-300 hover:underline">Login</a></p>
           </form>
         </div>
     </div>

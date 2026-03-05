@@ -9,21 +9,21 @@ body {
 }
 
 .btn {
-  @apply px-4 py-2 rounded-lg bg-blue-300 text-[#0a0f1f] font-semibold hover:bg-blue-300/90 transition cursor-pointer;
-}
+  @apply py-2 text-sm sm:text-base rounded-lg bg-blue-300 text-[#0a0f1f] font-semibold hover:bg-blue-300/90 transition cursor-pointer;
+} 
 
 /* Border Lines */
 @utility topleft {
-  @apply absolute -top-1 -left-1 border-2 border-blue-300 
+  @apply absolute -top-0.5 sm:-top-1 -left-0.5 sm:-left-1 border-2 border-blue-300 
 }
 @utility bottomleft {
-  @apply absolute -bottom-1 -left-1 border-2 border-blue-300 
+  @apply absolute -bottom-0.5 sm:-bottom-1 -left-0.5 sm:-left-1 border-2 border-blue-300 
 }
 @utility topright {
-  @apply absolute -top-1 -right-1 border-2 border-blue-300 
+  @apply absolute -top-0.5 sm:-top-1 -right-0.5 sm:-right-1 border-2 border-blue-300 
 }
 @utility bottomright {
-  @apply absolute -bottom-1 -right-1 border-2 border-blue-300 
+  @apply absolute -bottom-0.5 sm:-bottom-1 -right-0.5 sm:-right-1 border-2 border-blue-300 
 }
 @layer borderlines {
   /* Left Side */
@@ -55,12 +55,12 @@ body {
 }
 
 @utility polygon {
-  @apply absolute border-15 border-blue-300 w-1/6 left-1/2 top-0 -translate-x-1/2;
+  @apply absolute border-8 sm:border-15 border-blue-300 w-1/2 sm:w-1/6 left-1/2 top-0 -translate-x-1/2;
   clip-path: polygon(0 0, 100% 0%, 90% 100%, 10% 100%);
 }
 
 @utility positioning {
-  @apply absolute border-blue-300 border-5 -translate-y-1/2 top-1/2
+  @apply absolute border-blue-300 border-3 sm:border-5 -translate-y-1/2 top-1/2
 }
 @utility leftclip {
   @apply positioning;

@@ -28,7 +28,7 @@ export default function PasswordCard({ account, onDelete }) {
             Copy
           </button>
           <button
-            onClick={() => onDelete(account.id)}
+            onClick={() => onDelete(account._id)}
             className="text-sm text-red-400 hover:text-red-500 cursor-pointer transition"
           >
             Delete

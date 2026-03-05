@@ -3,7 +3,7 @@ import React from 'react'
 const AuthBorder = () => {
   return (
     // <div className='flex justify-center items-center w-full h-full'>
-        // <div className='flex justify-center items-center relative border-2 border-blue-300/70 w-3/4 h-3/4'>
+        <div className='absolute border-2 border-blue-300/70 sm:border-none w-full h-full'>
         <div>
           {/* Borders */}
           <div>
@@ -25,16 +25,16 @@ const AuthBorder = () => {
               <span className='polygon'></span>
               <div>
                 <span className='leftclip h-2/6 left-0'></span>
-                <span className='leftclip h-1/6 left-2 '></span>
+                <span className='leftclip h-1/6 left-1 sm:left-2 '></span>
               </div>
               <div>
                 <span className='rightclip h-2/6 right-0'></span>
-                <span className='rightclip h-1/6 right-2'></span>
+                <span className='rightclip h-1/6 right-1 sm:right-2'></span>
               </div>
             </div>
           </div>
         </div>
-        // </div>
+        </div>
     // </div>
   )
 }

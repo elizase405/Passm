@@ -27,15 +27,16 @@ export default function Dashboard() {
       }
     };
     fetchPasswords();
-  }, [passwords]);
+  }, []);
 
-  const handleAddPassword = (account) => {
+  const handleAddPassword = async(account) => {
     try {
-      const data = axios.post("/password/save-password", {
+      const data = await axios.post("/password/save-password", {
         site: account.site,
         username: account.username,
         password: encrypt(account.password)
       });
+      setPasswords(prev => [...prev, { ...account }]);
     } catch (err) {
       console.log("Error saving password: ", err);
     }

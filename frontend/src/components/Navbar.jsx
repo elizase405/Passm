@@ -8,7 +8,7 @@ export default function Navbar() {
 
   const links = [
     { label: "Dashboard", path: "/dashboard" },
-    { label: "Generator", path: "/dashboard#generator" },
+    // { label: "Generator", path: "/dashboard#generator" },
   ];
 
   return (
@@ -17,7 +17,7 @@ export default function Navbar() {
         {/* Logo */}
         <h1
           onClick={() => navigate("/")}
-          className="text-[#00ffcc] text-2xl font-bold cursor-pointer tracking-wide hover:text-[#00e6b8] transition"
+          className="text-[#00ffcc] text-xl sm:text-2xl font-bold cursor-pointer tracking-wide hover:text-[#00e6b8] transition"
         >
           <span className="text-[#0099ff]">Passm</span>
         </h1>
@@ -39,13 +39,13 @@ export default function Navbar() {
           <div>
             <button
               onClick={() => navigate("/register")}
-              className="px-3 py-1 rounded-lg border border-blue-300/30 text-blue-300 hover:bg-blue-300/10 cursor-pointer transition"
+              className="px-3 py-1 text-xs sm:text-sm md:text-lg rounded-lg border border-blue-300/30 text-blue-300 hover:bg-blue-300/10 cursor-pointer transition"
             >
               Register
             </button>
             <button
               onClick={() => navigate("/login")}
-              className="px-3 py-1 rounded-lg border border-blue-300/30 text-blue-300 hover:bg-blue-300/10 cursor-pointer transition ml-4"
+              className="px-3 py-1 text-xs sm:text-sm md:text-lg rounded-lg border border-blue-300/30 text-blue-300 hover:bg-blue-300/10 cursor-pointer transition ml-2 sm:ml-4"
             >
               Login
             </button>

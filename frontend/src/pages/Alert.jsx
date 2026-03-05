@@ -5,7 +5,7 @@ const INTERVAL = 50;
 const FADE_DURATION = 300;
 
 const Alert = ({ msg }) => {
-  const [progress, setProgress] = useState(15);
+  const [progress, setProgress] = useState(17);
   const [visible, setVisible] = useState(true);
   const [fading, setFading] = useState(false);
   const [paused, setPaused] = useState(false);
@@ -43,11 +43,11 @@ const Alert = ({ msg }) => {
       onMouseLeave={() => setPaused(false)}
     >
       {/* Alert box */}
-      <div className="absolute top-33 right-40 bg-[#050812] w-50 h-15 border border-[#00ffcc]/20 flex items-center justify-center px-4 text-white">{msg}</div>
+      <div className="absolute top-0 right-0 bg-[#050812] w-50 h-15 border border-[#00ffcc]/20 flex items-center justify-center px-4 text-white">{msg}</div>
 
       {/* Gradient progress bar */}
       <div
-        className="absolute top-47 right-40 h-1 transition-all duration-50 ease-linear"
+        className="absolute top-0 right-0 h-1 transition-all duration-50 ease-linear"
         style={{
           width: `${progress}%`,
           background:
