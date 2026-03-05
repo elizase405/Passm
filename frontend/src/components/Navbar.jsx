@@ -1,10 +1,11 @@
 import { useNavigate, useLocation } from "react-router-dom";
-// import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../context/AuthContext";
 
 export default function Navbar() {
   const navigate = useNavigate();
   const location = useLocation();
-  const { user, logout } = true
+  const { user, logout } = useAuth();
+  user = true;
 
   const links = [
     { label: "Dashboard", path: "/dashboard" },
