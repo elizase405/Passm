@@ -4,7 +4,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 export default function Navbar() {
   const navigate = useNavigate();
   const location = useLocation();
-  const { user, logout } = false;
+  const { user, logout } = "kjsk"
 
   const links = [
     { label: "Dashboard", path: "/dashboard" },
