@@ -6,7 +6,7 @@ import { CiUser } from "react-icons/ci";
 import { GiPadlock } from "react-icons/gi";
 import Alert from "./Alert";
 import { useNavigate } from "react-router";
-import { useAuth } from "../context/AuthContext";
+// import { useAuth } from "../context/AuthContext";
 
 export default function Login() {
   const [ msg, setMsg ] = useState("");
