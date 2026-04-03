@@ -20,8 +20,10 @@ export default function Login() {
       const res = await axios.post("/auth/login", data);
       // console.log("Login Successful: ", res.data);
       setMsg(res.data.message);
-      await fetchUser();
-      navigate("/dashboard");
+      setTimeout(async () => {
+            await fetchUser();
+            navigate("/dashboard");
+        }, 100);
     } catch (err) {
       setMsg(err.response?.data?.message || err.message);
       console.log(err.response?.data?.message || err.message);
