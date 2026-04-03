@@ -43,7 +43,7 @@ const login = async (req, res) => {
 
         res.json({ message: "Logged in successfully", token })
     } catch (e) {
-        return res.status(500).json({ message: "Some error occured! Please try again" })
+        return res.status(500).json({ message: "Some error occured! Please try again", error: e.message });
     }
 }
 
