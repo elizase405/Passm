@@ -23,7 +23,7 @@ export default function Login() {
       setTimeout(async () => {
             await fetchUser();
             navigate("/dashboard");
-        }, 100);
+        }, 1000);
     } catch (err) {
       setMsg(err.response?.data?.message || err.message);
       console.log(err.response?.data?.message || err.message);
