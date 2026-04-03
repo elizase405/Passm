@@ -40,8 +40,7 @@ const login = async (req, res) => {
         const token = jwt.sign({ id: user._id, username: user.username }, process.env.JWT_SECRET, { expiresIn: "30m" })
 
         // res.cookie("token", token, { httpOnly: true, secure: process.env.NODE_ENV === "production", sameSite: "strict", maxAge: 24 * 60 * 60 *1000 });
-        res.cookie("token", token, { httpOnly: true, secure: true, sameSite: "none" });
-
+        res.cookie("token", token, { httpOnly: true, secure: true, sameSite: "none", maxAge: 30 * 60 * 1000,});
         res.json({ message: "Logged in successfully", token })
     } catch (e) {
         return res.status(500).json({ message: "Some error occured! Please try again", error: e.message });
@@ -64,9 +63,9 @@ const logOut = async (req, res) => {
     try {
         res.clearCookie("token", {
             httpOnly: true,
-            secure: process.env.NODE_ENV === "production",
-            sameSite: "strict",
-        })
+            secure: true,
+            sameSite: "none", // must match login
+        });
         res.json({ message: "Logged Out successfully" })
     } catch (err) {
         res.status(500).json({ err: "Server error occured" })
