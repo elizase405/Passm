@@ -17,13 +17,17 @@ export default function Login() {
 
   const onSubmit = async (data) => {
     try {
-      const res = await axios.post("/auth/login", data);
-      // console.log("Login Successful: ", res.data);
-      setMsg(res.data.message);
-      setTimeout(async () => {
-            await fetchUser();
-            navigate("/dashboard");
-        }, 1000);
+        const res = await axios.post("/auth/login", data);
+        setMsg(res.data.message);
+
+        // Temporarily attach token to headers
+        const userRes = await axios.get("/auth/me", {
+            headers: { Authorization: `Bearer ${res.data.token}` },
+            withCredentials: true
+        });
+        setUser(userRes.data);
+
+        navigate("/dashboard");
     } catch (err) {
       setMsg(err.response?.data?.message || err.message);
       console.log(err.response?.data?.message || err.message);
