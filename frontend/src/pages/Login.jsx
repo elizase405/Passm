@@ -21,6 +21,9 @@ export default function Login() {
       // console.log("Login Successful: ", res.data);
       setMsg(res.data.message);
       localStorage.setItem("token", res.data.token);
+      // Call fetchUser here to populate user state
+    await fetchUser();
+
       navigate("/dashboard");
     } catch (err) {
       setMsg(err.response?.data?.message || err.message);
