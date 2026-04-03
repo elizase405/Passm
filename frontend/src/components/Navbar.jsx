@@ -4,8 +4,7 @@ import { useAuth } from "../context/AuthContext";
 export default function Navbar() {
   const navigate = useNavigate();
   const location = useLocation();
-  let { user, logout } = useAuth();
-  user = true;
+  const { user, logout } = useAuth();
 
   const links = [
     { label: "Dashboard", path: "/dashboard" },
