@@ -49,6 +49,7 @@ const login = async (req, res) => {
 
 const getAuthenticatedUser = async (req, res) => {
     const token = req.cookies.token;
+    console.log("Get token: ", token);
     if (!token) return res.status(401).json({ message: "Unauthorized" });
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
