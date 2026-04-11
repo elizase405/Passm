@@ -51,7 +51,7 @@ const getAuthenticatedUser = async (req, res) => {
     const token = req.cookies.token;
     console.log("Cookies: ", req.cookies);
     console.log("Get token: ", token);
-    if (!token) return res.status(401).json({ message: "Unauthorized" });
+    if (!token) return res.status(401).json({ message: "Unauthorizeddd" });
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
         res.json({ id: decoded.id, username: decoded.username })
