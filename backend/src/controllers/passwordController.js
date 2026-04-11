@@ -8,7 +8,7 @@ const getAllPasswords = async (req, res) => {
             ...item.toObject(),
             password: decrypt(item.password),
         }));
-        res.status(200).json(decrypted);
+        res.status(200).json({"message": "Passwords fetched successfully"});
     } catch (error) {
         console.log("Some error occured: ", error);
         res.status(500).json({ message: "Some error occured! Please try again" });

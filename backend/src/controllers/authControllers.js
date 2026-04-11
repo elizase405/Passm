@@ -49,13 +49,10 @@ const login = async (req, res) => {
 
 const getAuthenticatedUser = async (req, res) => {
     const token = req.cookies.token;
-    console.log("Cookies: ", req.cookies);
-    console.log("Get token: ", token);
     if (!token) return res.status(401).json({ message: "Unauthorized" });
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
         res.json({ id: decoded.id, username: decoded.username })
-        console.log("Authenticated user: ", decoded);
     } catch (err) {
         res.status(500).json({ err: "Server error occured" })
         console.error("Server error: ", err)
