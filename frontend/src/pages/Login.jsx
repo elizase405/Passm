@@ -13,15 +13,16 @@ export default function Login() {
   const { register, reset, watch, handleSubmit, formState: { errors, isSubmitting, isSubmitSuccessful } } = useForm({ defaultValues: { username: "", password: "" } });
   const password = watch("password");
   const navigate = useNavigate();
-  // const { fetchUser } = useAuth();
+  const { fetchUser } = useAuth();
 
   const onSubmit = async (data) => {
     try {
       const res = await axios.post("/auth/login", data);
-      // console.log("Login Successful: ", res.data);
+      console.log("Login Successful: ", res.data);
       setMsg(res.data.message);
-      // fetchUser();
+      fetchUser();
       setTimeout(() => navigate("/dashboard"), 500);
+      console.log("User authenticated, navigating to dashboard...");
     } catch (err) {
       setMsg(err.response?.data?.message || err.message);
       console.log(err.response?.data?.message || err.message);
