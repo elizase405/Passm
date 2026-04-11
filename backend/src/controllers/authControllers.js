@@ -48,19 +48,26 @@ const login = async (req, res) => {
 }
 
 const getAuthenticatedUser = async (req, res) => {
-    const token = req.cookies.token;
+    console.log("Handler hit");
+
+    const token = req.cookies?.token;
     console.log("Cookies: ", req.cookies);
     console.log("Get token: ", token);
-    if (!token) return res.status(401).json({ message: "Unauthorizeddd" });
+
+    if (!token) {
+        console.log("No token found");
+        return res.status(401).json({ message: "Unauthorized" });
+    }
+
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        res.json({ id: decoded.id, username: decoded.username })
         console.log("Authenticated user: ", decoded);
+        return res.json({ id: decoded.id, username: decoded.username });
     } catch (err) {
-        res.status(500).json({ err: "Server error occured" })
-        console.error("Server error: ", err)
+        console.error("Server error: ", err);
+        return res.status(500).json({ err: "Server error occurred" });
     }
-}
+};
 
 const logOut = async (req, res) => {
     try {
