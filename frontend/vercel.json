@@ -3,10 +3,6 @@
     {
       "source": "/api/(.*)",
       "destination": "https://passm-ajf4.vercel.app/api/$1"
-    },
-    {
-      "source": "/(.*)",
-      "destination": "/index.html"
     }
   ]
 }
