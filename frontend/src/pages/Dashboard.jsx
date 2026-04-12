@@ -21,6 +21,7 @@ export default function Dashboard() {
           ...item,
           password: decrypt(item.password),
         }));
+        console.log("Fetched passwords: ", data);
         setPasswords(data);
       } catch (err) {
         console.log("Error fetching passwords: ", err);
