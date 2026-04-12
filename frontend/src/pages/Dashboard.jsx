@@ -24,7 +24,7 @@ export default function Dashboard() {
         setPasswords(data);
       } catch (err) {
         console.log("Error fetching passwords: ", err);
-        console.log(data)
+        console.log(passwords)
       }
     };
     fetchPasswords();
