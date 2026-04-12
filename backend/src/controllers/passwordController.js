@@ -1,5 +1,5 @@
 const Password = require("../models/Password.js");
-const { encrypt, decrypt } = require("../utils/crypto.js");
+// const { encrypt, decrypt } = require("../utils/crypto.js");
 
 const getAllPasswords = async (req, res) => {
     try {
@@ -18,7 +18,7 @@ const getAllPasswords = async (req, res) => {
 const addPassword = async (req, res) => {
     const { site, username, password } = req.body;
     try {
-        const encryptedPassword = encrypt(password);
+        const encryptedPassword = password;
 
         const newPassword = await Password.create({ site, username, password: encryptedPassword, userId: req.userInfo.id });
 

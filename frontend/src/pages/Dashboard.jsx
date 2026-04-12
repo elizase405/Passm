@@ -17,7 +17,8 @@ export default function Dashboard() {
     const fetchPasswords = async () => {
       try {
         const response = await axios.get("/password/get-passwords");
-        const data = response.data.map((item) => ({
+        const passwords = response.data.passwords;
+        const data = passwords.map((item) => ({
           ...item,
           password: decrypt(item.password),
         }));
@@ -38,6 +39,7 @@ export default function Dashboard() {
         username: account.username,
         password: encrypt(account.password)
       });
+      console.log("Password saved: ", data);
       setPasswords(prev => [...prev, { ...account }]);
     } catch (err) {
       console.log("Error saving password: ", err);
