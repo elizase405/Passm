@@ -17,15 +17,15 @@ export default function Dashboard() {
     const fetchPasswords = async () => {
       try {
         const response = await axios.get("/password/get-passwords");
-        // const data = response.data.map((item) => ({
-        //   ...item,
-        //   password: decrypt(item.password),
-        // }));
-        console.log("Fetched passwords: ", response.data);
-        setPasswords(response.data);
+        const data = response.data.map((item) => ({
+          ...item,
+          password: decrypt(item.password),
+        }));
+        setPasswords(data);
+        console.log("Undecrypted passwords: ", response.data);
+        console.log("Decrypted passwords: ", data);
       } catch (err) {
         console.log("Error fetching passwords: ", err);
-        console.log(passwords)
       }
     };
     fetchPasswords();

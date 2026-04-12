@@ -6,9 +6,9 @@ const getAllPasswords = async (req, res) => {
         const passwords = await Password.find({userId: req.userInfo.id});
         const decrypted = passwords.map((item) => ({
             ...item.toObject(),
-            password: decrypt(item.password),
+            password: item.password,
         }));
-        res.status(200).json({"message": "Passwords fetched successfully"});
+        res.status(200).json({"message": "Passwords fetched successfully", "passwords": decrypted});
     } catch (error) {
         console.log("Some error occured: ", error);
         res.status(500).json({ message: "Some error occured! Please try again" });
